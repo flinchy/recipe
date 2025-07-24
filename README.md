@@ -1,8 +1,8 @@
 ## Running the application on your local machine
 
-First start up the db with docker compose by running the below
+To begin, you need to start up the postgre db with docker compose
 
-*cd* into the working directory then run the below command
+First *cd* into the working directory then run the below command
 ```bash
   docker compose up -d
   
