@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: v0
+      author: chisom
+      changes:
+        - tagDatabase:
+            tag: v0

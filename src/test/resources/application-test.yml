@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: buy-recipes
+  datasource:
+    username: ${DB_USERNAME} #injected by the docker container
+    password: ${DB_PASSWORD} #injected by the docker container
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: ${JDBC_URL} #injected by the docker container
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    driver-class-name: org.postgresql.Driver
+    url: ${JDBC_URL} #injected by the docker container
+    user: ${DB_USERNAME} #injected by the docker container
+    password: ${DB_PASSWORD} #injected by the docker container

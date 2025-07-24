@@ -1,0 +1,18 @@
+# Set default behavior to auto-convert CRLF line endings
+* text=auto
+
+# Explicitly declare text files you want to always normalize
+*.java text
+*.xml text
+*.properties text
+*.md text
+
+# Denote files that should remain untouched
+*.png binary
+*.jpg binary
+*.jar binary
+
+# Handle shell scripts correctly
+*.sh text eol=lf
+mvnw text eol=lf
+mvnw.cmd text eol=crlf

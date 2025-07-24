@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1
+      author: chisom
+      comment: create tables, cart_items, cart_recipes, carts, products, recipe, recipe_ingredients
+      changes:
+        - tagDatabase:
+            tag: v1
+        - sqlFile:
+            dbms: postgresql
+            path: v1_create.sql
+            relativeToChangelogFile: true
+        - sqlFile:
+            dbms: postgresql
+            path: v1_insert.sql
+            relativeToChangelogFile: true
