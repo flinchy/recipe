@@ -1,12 +1,25 @@
+## Prerequisite
+  - Java 21
+  - docker
+
 ## Running the application on your local machine
 
-To begin, you need to start up the postgre db with docker compose
+To begin, you need to start up the postgres db with docker compose
 
 First *cd* into the working directory then run the below command
 ```bash
   docker compose up -d
   
  ```
+
+Run cucumber API integration test by running 
+``` mvn clean test -P cucumber-tests cluecumber-report:reporting  ```
+
+
+start the application with the below command
+```shell
+    ./mvnw spring-boot:run
+```
 
 ### API Test Automation Stack
 This application implements a robust end-to-end API testing framework combining:
