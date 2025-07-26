@@ -110,10 +110,7 @@ public class CartService {
     @Transactional
     public void deleteRecipeFromCart(Long cartId, Long cartRecipeId) {
         wrap(
-                () -> {
-                    cartRepository.hardDeleteRecipeAndRecalc(cartId, cartRecipeId);
-                    return null;
-                },
+                () -> cartRepository.hardDeleteRecipeAndRecalc(cartId, cartRecipeId),
                 () -> logger.warn("Could not remove recipe {} from cart {}", cartRecipeId, cartId),
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 "Could not delete recipe from cart at this time"

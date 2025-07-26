@@ -36,7 +36,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
             removed_items AS (
               -- list each ingredient & how many we’re removing
               SELECT ri.product_id,
-                     (ri.quantity * rm.serving) AS quantity
+                     rm.serving AS quantity
                 FROM recipe_ingredient ri
                 JOIN recipe_meta rm
                   ON rm.recipe_id = ri.recipe_id
