@@ -12,11 +12,13 @@ First *cd* into the working directory then run the below command
   
  ```
 
-Run cucumber API integration test by running 
-``` mvn clean test -P cucumber-tests cluecumber-report:reporting  ```
+Run the test to make sure all passes with the below command
+```bash
+    mvn clean test
+ ```
 
 
-start the application with the below command
+Then start the application with the below command
 ```shell
     ./mvnw spring-boot:run
 ```
@@ -26,6 +28,7 @@ This application implements a robust end-to-end API testing framework combining:
 
 - RestAssured: For streamlined HTTP requests and response validation
 - Cucumber (BDD): For behavior-driven test scenarios in Gherkin syntax
+- Testcontainers
 
 #### Key features of our API testing solution:
 
@@ -38,12 +41,12 @@ This application implements a robust end-to-end API testing framework combining:
     - Schema validation (JSON Schema)
 
 
-#### Running the test with cucumber
-
-```  mvn clean test -P cucumber-tests cluecumber-report:reporting  ```
-
-
-To run Unit Test
+#### Running the cucumber test alone
 ```bash
-mvn clean test -P unit-integration
+    mvn clean test -P cucumber-tests cluecumber-report:reporting
+```
+
+#### Running the Unit test alone
+```bash
+  mvn clean test -P unit
 ```

@@ -88,7 +88,6 @@ public class CartService {
                 // 4. client-facing message
                 ERROR_SAVING_RECIPE
         );
-
     }
 
     @Transactional(readOnly = true)
