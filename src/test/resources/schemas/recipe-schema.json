@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "ingredient": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "integer" },
+                "name": { "type": "string" },
+                "price": { "type": "number" }
+              },
+              "required": ["id", "name", "price"]
+            }
+          }
+        },
+        "required": ["id", "name", "description", "ingredient"]
+      }
+    },
+    "page": { "type": "integer" },
+    "size": { "type": "integer" },
+    "totalElements": { "type": "integer" },
+    "totalPages": { "type": "integer" },
+    "first": { "type": "boolean" },
+    "last": { "type": "boolean" }
+  },
+  "required": [
+    "content",
+    "page",
+    "size",
+    "totalElements",
+    "totalPages",
+    "first",
+    "last"
+  ]
+}

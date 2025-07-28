@@ -37,7 +37,7 @@ This application implements a robust end-to-end API testing framework combining:
     - Step definitions mapping to API test operations
 - Comprehensive API Validation
     - Status code assertions
-    - Response time measurements
+    - Response assertions
     - Schema validation (JSON Schema)
 
 

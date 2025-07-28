@@ -14,6 +14,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Log4j2
@@ -59,7 +60,6 @@ public class RecipeStepDef {
         assertEquals((long) totalElement, page.totalElements());
     }
 
-
     /*==================================================================================================================
      SCENARIO: RETRIEVE RECIPES WITH PAGINATION
      =================================================================================================================*/
@@ -70,7 +70,10 @@ public class RecipeStepDef {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
                 .get("/recipes?page=%s".formatted(page))
-                .then().log().all().extract().response();
+                .then()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("schemas/recipe-schema.json"))
+                .log().all().extract().response();
 
         scenarioContext.set("recipeResponse", response);
     }
