@@ -110,6 +110,19 @@ public class BuyRecipeExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errors, headers, status, request);
     }
 
+    @ExceptionHandler(BuyRecipeException.class)
+    public ResponseEntity<ApiError> handleBuyRecipeException(Exception ex, WebRequest request) {
+        logger.error(ex.getMessage(), ex);
+        String path = (request instanceof ServletWebRequest swr) ? swr.getRequest().getRequestURI() : "N/A";
+
+        ApiError body = ApiError.builder()
+                .message(ex.getMessage())
+                .path(path)
+                .build();
+
+        return ResponseEntity.internalServerError().body(body);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleUnexpected(Exception ex, WebRequest request) {
         logger.error("Unexpected error", ex);
@@ -122,6 +135,7 @@ public class BuyRecipeExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.internalServerError().body(body);
     }
+
 
     /* ---------------------------------------------------------------------- */
     /* Helpers: messages & ApiError                                           */
@@ -180,7 +194,7 @@ public class BuyRecipeExceptionHandler extends ResponseEntityExceptionHandler {
                                                   JsonMappingException ex) {
         String field = firstFieldName(ex.getPath()).orElse(null);
         Throwable root = rootCause(ex);
-        String detail = firstLine(root != null ? root.getMessage() : null);
+        String detail = firstLine(Optional.ofNullable(root).map(Throwable::getMessage).orElse(null));
 
         StringBuilder sb = new StringBuilder("Invalid value");
         if (field != null) sb.append(" for field '").append(field).append("'");
@@ -232,8 +246,12 @@ public class BuyRecipeExceptionHandler extends ResponseEntityExceptionHandler {
         }
     }
 
-    private static Throwable rootCause(Throwable t) {
-        return t == null ? null : ExceptionUtils.getRootCause(t) == null ? t : ExceptionUtils.getRootCause(t);
+    private static Throwable rootCause(Throwable throwable) {
+        if (throwable == null) {
+            return null;
+        }
+        Throwable rootCause = ExceptionUtils.getRootCause(throwable);
+        return rootCause != null ? rootCause : throwable;
     }
 
     private static String firstLine(String s) {

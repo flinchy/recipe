@@ -50,3 +50,74 @@ This application implements a robust end-to-end API testing framework combining:
 ```bash
   mvn clean test -P unit
 ```
+
+### DATA MODEL
+
+```mermaid
+erDiagram
+    CARTS {
+        BIGINT id PK
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+        TIMESTAMP deleted_at
+        NUMERIC total_in_cents
+    }
+
+    PRODUCTS {
+        BIGINT id PK
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+        TIMESTAMP deleted_at
+        VARCHAR name
+        NUMERIC price_in_cents
+    }
+
+    RECIPE {
+        BIGINT id PK
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+        TIMESTAMP deleted_at
+        VARCHAR name
+        VARCHAR description
+    }
+
+    CART_RECIPES {
+        BIGINT id PK
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+        TIMESTAMP deleted_at
+        BIGINT cart_id FK
+        BIGINT recipe_id FK
+    }
+
+    RECIPE_INGREDIENT {
+        BIGINT id PK
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+        TIMESTAMP deleted_at
+        BIGINT recipe_id FK
+        BIGINT product_id FK
+    }
+
+    CART_ITEMS {
+        BIGINT id PK
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+        TIMESTAMP deleted_at
+        BIGINT cart_id FK
+        BIGINT product_id FK
+        BIGINT cart_recipe_id FK
+        cartline line_type
+        BIGINT quantity
+    }
+
+    CARTS ||--o{ CART_ITEMS : contains
+    %% CART_ITEMS ||--o{ CART_RECIPES : contains
+    CART_ITEMS ||--o{ PRODUCTS : contains
+    RECIPE ||--o{ RECIPE_INGREDIENT : contains
+    RECIPE_INGREDIENT ||--o{ PRODUCTS : contains
+
+    RECIPE ||--o{ CART_RECIPES : contains
+    CART_RECIPES ||--o{ CART_ITEMS : contains
+
+```
